@@ -14,10 +14,25 @@ class App extends Component {
          {description: 'clean', isCompleted: true}
 
       ],
-      newTodoDescription: ""
+      newTodoDescription: "",
+
 
 
     };
+  }
+
+  deleteTodo(index){
+    const newItems = this.state.todos.filter((todos,i) => {
+      return i !== index;
+
+    })
+    this.setState({
+
+      todos: newItems
+
+
+    })
+
   }
 
   toggleComplete(index) {
@@ -46,15 +61,21 @@ class App extends Component {
         <ul>
 
           {this.state.todos.map((todo,index) =>
-            <ToDo key={index} description={todo.description} isCompleted={todo.isCompleted} toggleComplete={() => this.toggleComplete(index)} />
+            <ToDo key={index} deleteTodo={() => this.deleteTodo(index)}description={todo.description} isCompleted={todo.isCompleted} toggleComplete={() => this.toggleComplete(index)} />
 
           )}
+
+
 
         </ul>
         <form onSubmit={(e) => this.handleSubmit(e)}>
           <input type="text" value={this.state.newToDoDescription} onChange={(e) => this.handleChange(e)}/>
           <input type="submit"/>
         </form>
+        <div>
+
+
+        </div>
 
       </div>
     );
@@ -62,3 +83,5 @@ class App extends Component {
 }
 
 export default App;
+//{this.state.todos.map((todo,index)=>
+  //<button key={index} onClick={(e) => this.removeItem(index)} type="button" className="btn">Delete</button>
