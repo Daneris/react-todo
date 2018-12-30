@@ -40,18 +40,31 @@ class App extends Component {
       newToDoDescription: " "
     })
   }
+
+  deleteTodo(index){
+    const newItems = this.state.todos.filter((todos,i) => {
+      return i !== index;
+      })
+      this.setState({
+      todos: newItems
+
+      })
+
+    }
+
   render() {
     return (
       <div className="App">
+        <h2 className="title">ToDo/Notes</h2>
         <ul>
-
           {this.state.todos.map((todo,index) =>
-            <ToDo key={index} description={todo.description} isCompleted={todo.isCompleted} toggleComplete={() => this.toggleComplete(index)} />
+            <ToDo key={index} deleteTodo={() => this.deleteTodo(index)}description={todo.description} isCompleted={todo.isCompleted} toggleComplete={() => this.toggleComplete(index)} />
 
-          )}
+            )}
 
         </ul>
-        <form onSubmit={(e) => this.handleSubmit(e)}>
+        <form onSubmit={(e) => this.handleSubmit(e)} className="form">
+          <label>Create ToDo:</label>
           <input type="text" value={this.state.newToDoDescription} onChange={(e) => this.handleChange(e)}/>
           <input type="submit"/>
         </form>
